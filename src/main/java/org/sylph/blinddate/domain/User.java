@@ -1,23 +1,23 @@
 package org.sylph.blinddate.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
-
-import java.time.Instant;
+import org.sylph.blinddate.base.BaseEntity;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+@AttributeOverrides({
+        @AttributeOverride(name = "updatedAt", column = @Column(name = "updated_at"))
+})
+public class User extends BaseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -38,13 +38,5 @@ public class User {
     @ColumnDefault("1")
     @Column(name = "enabled")
     private Boolean enabled;
-
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "updated_at")
-    private Instant updatedAt;
 
 }

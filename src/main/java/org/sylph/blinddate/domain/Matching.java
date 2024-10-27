@@ -7,18 +7,21 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.sylph.blinddate.base.BaseEntity;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "matchings")
-public class Matching {
+@AttributeOverrides({
+        @AttributeOverride(name = "updatedAt", column = @Column(name = "updated_at"))
+})
+public class Matching extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "matching_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @NotNull
@@ -42,13 +45,5 @@ public class Matching {
     @Lob
     @Column(name = "status", nullable = false)
     private String status;
-
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "updated_at")
-    private Instant updatedAt;
 
 }

@@ -1,6 +1,6 @@
 -- 참여자 정보 테이블 생성
 CREATE TABLE participants (
-                              participant_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '참여자 ID (고유 식별자)',
+                              id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '참여자 ID (고유 식별자)',
                               name VARCHAR(50) NOT NULL COMMENT '이름',
                               gender ENUM('M', 'F') NOT NULL COMMENT '성별 (M: 남자, F: 여자)',
                               birth_year YEAR NOT NULL COMMENT '출생 연도',
@@ -20,7 +20,7 @@ CREATE TABLE participants (
 
 -- 소개팅 매칭 정보 테이블 생성
 CREATE TABLE matchings (
-                           matching_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '매칭 ID (고유 식별자)',
+                           id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '매칭 ID (고유 식별자)',
                            male_participant_id BIGINT UNSIGNED NOT NULL COMMENT '남자 참여자 ID',
                            female_participant_id BIGINT UNSIGNED NOT NULL COMMENT '여자 참여자 ID',
                            matched_at DATE NOT NULL COMMENT '매칭 일자 (형식: YYYY-MM-DD)',
@@ -28,8 +28,8 @@ CREATE TABLE matchings (
                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '매칭 생성 일자',
                            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '정보 수정 일자',
 
-                           CONSTRAINT fk_male_participant FOREIGN KEY (male_participant_id) REFERENCES participants(participant_id) ON DELETE CASCADE,
-                           CONSTRAINT fk_female_participant FOREIGN KEY (female_participant_id) REFERENCES participants(participant_id) ON DELETE CASCADE
+                           CONSTRAINT fk_male_participant FOREIGN KEY (male_participant_id) REFERENCES participants(id) ON DELETE CASCADE,
+                           CONSTRAINT fk_female_participant FOREIGN KEY (female_participant_id) REFERENCES participants(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='소개팅 매칭 정보 테이블';
 
 
