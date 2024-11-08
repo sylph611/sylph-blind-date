@@ -3,17 +3,19 @@ package org.sylph.blinddate.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.sylph.blinddate.base.BaseEntity;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "participants")
+@Builder
 @AttributeOverrides({
         @AttributeOverride(name = "updatedAt", column = @Column(name = "updated_at"))
 })
+@NoArgsConstructor
+@AllArgsConstructor
 public class Participant extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
