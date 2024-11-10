@@ -9,19 +9,21 @@ import org.springframework.web.bind.annotation.*;
 import org.sylph.blinddate.controller.dto.ParticipantDto;
 import org.sylph.blinddate.service.ParticipantService;
 
-@RestController("/api/participants")
+@CrossOrigin(origins = "http://localhost:3000")  // React와 연동하기 위해 추가
+@RestController
+@RequestMapping("/api/participants")
 @RequiredArgsConstructor
 public class ParticipantController {
 
     private final ParticipantService participantService;
     // GET /api/participants: 모든 참여자 목록 조회. 를 만들어줘
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<Page<ParticipantDto>> getParticipants(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(participantService.getParticipants(Pageable.ofSize(size).withPage(page)));
     }
-
+//
     // GET /api/participants/{id}: 특정 참여자 상세 정보 조회.
     @GetMapping("/{id}")
     public ResponseEntity<ParticipantDto> getParticipant(@PathVariable Long id) {
@@ -29,7 +31,7 @@ public class ParticipantController {
     }
 
     // POST /api/participants: 참여자 등록.
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<?> saveParticipant(@RequestBody ParticipantDto participantDto) {
         participantService.saveParticipant(participantDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();

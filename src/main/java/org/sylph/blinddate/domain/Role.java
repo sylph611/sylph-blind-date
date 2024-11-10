@@ -5,12 +5,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -25,4 +26,8 @@ public class Role {
     @Column(name = "description", length = 100)
     private String description;
 
+    @Override
+    public String getAuthority() {
+        return roleName;
+    }
 }
