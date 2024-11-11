@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.sylph.blinddate.controller.dto.ParticipantDto;
 import org.sylph.blinddate.service.ParticipantService;
 
-@CrossOrigin(origins = "http://localhost:3000")  // React와 연동하기 위해 추가
 @RestController
 @RequestMapping("/api/participants")
 @RequiredArgsConstructor
